@@ -81,6 +81,7 @@ public class frm_register extends JFrame {
 		txt_reg_pass = new JPasswordField();
 		txt_reg_pass.setBounds(167, 57, 87, 20);
 		panel.add(txt_reg_pass);
+		setLocationRelativeTo(null);
 	}
 	public void reg()
 	{

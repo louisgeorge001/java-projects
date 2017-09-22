@@ -96,6 +96,7 @@ public class frm_login extends JFrame {
 		txt_login_pass = new JPasswordField();
 		txt_login_pass.setBounds(158, 67, 168, 24);
 		panel.add(txt_login_pass);
+		setLocationRelativeTo(null);
 	}
 	public void login()
 	{
