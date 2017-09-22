@@ -11,5 +11,8 @@ private int whatsitresourcecount;
 	{
 		whatsit= new ArrayList<>();
 		widget= new ArrayList<>();
+		widgetresourcecount = 30;
+		whatsitresourcecount = 40;
+		
 	}
 }
