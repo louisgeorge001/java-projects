@@ -53,5 +53,21 @@ public class dentist_informationcontroller extends dentist_information {
 		}
 		return false;
 	}
+	public int update_dentist_information(dentist_information d)
+	{
+		int res = 0;
+		try
+		{
+			String update_info = "UPDATE dentist_information SET date = '"+d.getDate()+"', amountpaid = '"+d.getAmpaid()+"', rubbercolor = '"+d.getRubbercolor()+"' WHERE "
+					+ "patient_uname = '"+d.getPatient_uname()+"' ";
+			ps = conn.prepareStatement(update_info);
+			ps.execute();
+		}catch(Exception err)
+		{
+			err.printStackTrace();
+		}
+		
+		return res;
+	}
 
 }

@@ -6,15 +6,28 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controllerdao.dentist_informationcontroller;
+import modeldao.dentist_information;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class frm_mainpage extends JFrame {
 
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
+	private JTextField textField_1;
+	private JScrollPane scrollPane;
+	private JTextField textField_2;
+	private JLabel lblRubberColor;
 
 	/**
 	 * Launch the application.
@@ -47,9 +60,12 @@ public class frm_mainpage extends JFrame {
 		lblHello.setBounds(918, 33, 70, 15);
 		contentPane.add(lblHello);
 		
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(162, 245, 706, 188);
+		contentPane.add(scrollPane);
+		
 		table = new JTable();
-		table.setBounds(55, 170, 898, 284);
-		contentPane.add(table);
+		scrollPane.setViewportView(table);
 		
 		textField = new JTextField();
 		textField.setBounds(162, 52, 128, 29);
@@ -59,6 +75,55 @@ public class frm_mainpage extends JFrame {
 		JLabel lblDate = new JLabel("Date");
 		lblDate.setBounds(109, 59, 70, 15);
 		contentPane.add(lblDate);
+		
+		JLabel lblAmountpaid = new JLabel("Amountpaid");
+		lblAmountpaid.setBounds(55, 100, 109, 15);
+		contentPane.add(lblAmountpaid);
+		
+		textField_1 = new JTextField();
+		textField_1.setColumns(10);
+		textField_1.setBounds(162, 93, 128, 29);
+		contentPane.add(textField_1);
+		
+		textField_2 = new JTextField();
+		textField_2.setColumns(10);
+		textField_2.setBounds(162, 135, 128, 29);
+		contentPane.add(textField_2);
+		
+		lblRubberColor = new JLabel("Rubber Color");
+		lblRubberColor.setBounds(55, 142, 109, 15);
+		contentPane.add(lblRubberColor);
+		
+		JButton btnAdd = new JButton("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				adddentistinfo();
+			}
+		});
+		btnAdd.setBounds(162, 176, 128, 39);
+		contentPane.add(btnAdd);
 		setLocationRelativeTo(null);
+	}
+	public void adddentistinfo()
+	{
+		String p_date = this.textField.getText();
+		String p_ampaid = this.textField_1.getText();
+		String p_rubcolor = this.textField_2.getText();
+		
+		dentist_informationcontroller d = new dentist_informationcontroller();
+		dentist_information dd = new dentist_information();
+		dd.setDate(p_date);
+		dd.setAmpaid(p_ampaid);
+		dd.setRubbercolor(p_rubcolor);
+		
+		int res = d.add_dentist_information(dd);
+		if(res>0)
+			JOptionPane.showMessageDialog(null, "Dentist information is successfully added!");
+		else
+			JOptionPane.showMessageDialog(null, "Insert error!");
+	}
+	public void viewdentistinfo()
+	{
+		
 	}
 }

@@ -25,6 +25,7 @@ public class frm_login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txt_login_uname;
 	private JPasswordField txt_login_pass;
+	public static String username;
 
 	/**
 	 * Launch the application.
@@ -112,6 +113,8 @@ public class frm_login extends JFrame {
 		if(res)
 		{
 			JOptionPane.showMessageDialog(null, "Login!!!");
+			new frm_mainpage().setVisible(true);
+			dispose();
 		}
 		else
 		{
