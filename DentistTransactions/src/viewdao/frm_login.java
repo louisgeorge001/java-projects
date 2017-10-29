@@ -19,6 +19,8 @@ import javax.swing.JButton;
 import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class frm_login extends JFrame {
 
@@ -95,6 +97,15 @@ public class frm_login extends JFrame {
 		panel.add(btnRegister);
 		
 		txt_login_pass = new JPasswordField();
+		txt_login_pass.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(arg0.getKeyCode()==KeyEvent.VK_ENTER)
+				{
+					login();
+				}
+			}
+		});
 		txt_login_pass.setBounds(158, 67, 168, 24);
 		panel.add(txt_login_pass);
 		setLocationRelativeTo(null);
@@ -112,8 +123,13 @@ public class frm_login extends JFrame {
 		boolean res = ucontrol.checkLogin(u);
 		if(res)
 		{
-			JOptionPane.showMessageDialog(null, "Login!!!");
-			new frm_mainpage().setVisible(true);
+			String getid = u.getUser_id();
+			
+			//JOptionPane.showMessageDialog(null, "Login!!!");
+			//label_userid.setText(getid);
+			frm_mainpage frmm = new frm_mainpage();
+			frmm.lblHello.setText(getid);
+			frmm.setVisible(true);
 			dispose();
 		}
 		else

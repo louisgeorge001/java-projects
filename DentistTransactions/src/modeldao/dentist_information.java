@@ -6,7 +6,14 @@ public class dentist_information {
 	private String ampaid;
 	private String rubbercolor;
 	private String patient_uname;
+	private String user_id;
 	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id;
+	}
 	public String getPatient_uname() {
 		return patient_uname;
 	}

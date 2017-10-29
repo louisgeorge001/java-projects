@@ -86,11 +86,12 @@ public class usercontroller extends user{
 		String sql = "";
 		try
 		{
-			sql = "SELECT uname,pword FROM tbl_users WHERE uname = '"+u.getUname()+"' AND pword = '"+u.getPword()+"' ";
+			sql = "SELECT user_id,uname,pword FROM tbl_users WHERE uname = '"+u.getUname()+"' AND pword = '"+u.getPword()+"' ";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if(rs.next())
 			{
+				u.setUser_id(rs.getString("user_id"));
 				return true;
 			}
 			else

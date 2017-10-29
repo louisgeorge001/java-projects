@@ -2,10 +2,13 @@ package controllerdao;
 
 import java.sql.ResultSet;
 
+import javax.swing.JTable;
+
 import com.mysql.jdbc.Connection;
 
 import database.DatabaseConnection;
 import modeldao.dentist_information;
+import net.proteanit.sql.DbUtils;
 
 public class dentist_informationcontroller extends dentist_information {
 	DatabaseConnection db;
@@ -36,17 +39,15 @@ public class dentist_informationcontroller extends dentist_information {
 		}
 		return res;
 	}
-	public boolean retrievedentist_information(dentist_information d)
+	public boolean retrievedentist_information(dentist_information d,JTable jtablee)
 	{
 		try
 		{
-			String get_information = "SELECT * FROM dentist_information WHERE patient_uname = '"+d.getPatient_uname()+"' ";
+			String get_information = "SELECT * FROM tbl_dentistinfo";
 			ps = conn.prepareStatement(get_information);
 			rs = ps.executeQuery();
-			while(rs.next())
-			{
-				return true;
-			}
+			jtablee.setModel(DbUtils.resultSetToTableModel(rs));	
+			return true;
 		}catch(Exception err)
 		{
 			err.printStackTrace();
