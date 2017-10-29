@@ -105,8 +105,8 @@ public class frm_login extends JFrame {
 		String pass = new String(txt_login_pass.getText());
 		user u = new user();
 		u.setId(0);
-		u.setUsername(uname);
-		u.setPassword(pass);
+		u.setUname(uname);
+		u.setPword(pass);
 		
 		usercontroller ucontrol = new usercontroller();
 		boolean res = ucontrol.checkLogin(u);

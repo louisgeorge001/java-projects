@@ -3,6 +3,8 @@ package controllerdao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.swing.JOptionPane;
+
 import com.mysql.jdbc.Connection;
 import com.mysql.jdbc.PreparedStatement;
 
@@ -20,19 +22,57 @@ public class usercontroller extends user{
 		db = new DatabaseConnection();
 		conn = db.getConnection();
 	}
-	
+	public void showoptionpane(String op_message)
+	{
+		JOptionPane.showMessageDialog(null, op_message);
+	}
 	public int createUserAccount(user u)
 	{
 		int res = 0;
 		String sql = "";
 		try
 		{
-			sql = "INSERT INTO tbl_users(username,password)VALUES(?,?)";
-			ps = conn.prepareStatement(sql);
-			ps.setString(1, u.getUsername());
-			ps.setString(2, u.getPassword());
-			ps.execute();
-			res = 1;
+			String searchforaccount = "SELECT uname,pword FROM tbl_users WHERE uname='"+u.getUname()+"' AND pword = '"+u.getPword()+"' ";
+			ps = conn.prepareStatement(searchforaccount);
+			rs = ps.executeQuery();
+			if(rs.next())
+			{
+				showoptionpane("User Exists!");
+			}
+			else
+			{
+				String searhforxisting = "SELECT user_id,uname,pword FROM tbl_users ORDER BY user_id DESC LIMIT 1 ";
+				ps = conn.prepareStatement(searhforxisting);
+				rs = ps.executeQuery();
+				if(rs.next())
+				{
+					String userid = rs.getString("user_id");
+					
+					String finaluserid = autoincremID(userid,"USER");
+					sql = "INSERT INTO tbl_users(user_id,uname,pword)VALUES(?,?,?)";
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, finaluserid);
+					ps.setString(2, u.getUname());
+					ps.setString(3, u.getPword());
+					ps.execute();
+					res = 1;
+					
+				}
+				else
+				{
+					sql = "INSERT INTO tbl_users(user_id,uname,pword)VALUES(?,?,?)";
+					ps = conn.prepareStatement(sql);
+					ps.setString(1, generateID("USER"));
+					ps.setString(2, u.getUname());
+					ps.setString(3, u.getPword());
+					ps.execute();
+					res = 1;
+					
+					
+				}
+				
+			}
+			
 			
 		}catch(Exception err)
 		{
@@ -46,7 +86,7 @@ public class usercontroller extends user{
 		String sql = "";
 		try
 		{
-			sql = "SELECT username,password FROM tbl_users WHERE username = '"+u.getUsername()+"' AND password = '"+u.getPassword()+"' ";
+			sql = "SELECT uname,pword FROM tbl_users WHERE uname = '"+u.getUname()+"' AND pword = '"+u.getPword()+"' ";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			if(rs.next())
@@ -63,6 +103,31 @@ public class usercontroller extends user{
 			err.printStackTrace();
 		}
 		return false;
+	}
+	public String generateID(String id_type)
+	{
+		String maxid = "";
+		String fullid = id_type+"-00000000";
+		return fullid;
+	}
+	public String autoincremID(String columnname,String idype)
+	{
+		String word = "";
+		String word2 = "";
+		int loop = 0;		
+		while(!(columnname.charAt(loop)+"").equals("-"))
+		{
+			word+=columnname.charAt(loop);
+			loop++;
+		}
+		loop++;
+		word2 = columnname.substring(loop,columnname.length());//0000000
+		String str = word2;
+		int convertword2 = Integer.parseInt(str);
+		convertword2++;
+		String convertwordletter = Integer.toString(convertword2);
+		String formatted = idype+"-"+("00000000" + convertwordletter).substring(convertwordletter.length());
+		return formatted;
 	}
 
 }

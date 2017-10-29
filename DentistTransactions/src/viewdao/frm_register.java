@@ -89,8 +89,8 @@ public class frm_register extends JFrame {
 		String pass = new String(txt_reg_username.getText());
 		user u = new user();
 		u.setId(0);
-		u.setUsername(uname);
-		u.setPassword(pass);
+		u.setUname(uname);
+		u.setPword(pass);
 		
 		usercontroller usercontrol = new usercontroller();
 		int res = usercontrol.createUserAccount(u);

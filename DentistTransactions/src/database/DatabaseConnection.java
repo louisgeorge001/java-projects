@@ -15,7 +15,7 @@ public class DatabaseConnection {
 	
 	public DatabaseConnection()
 	{
-		url = "jdbc:mysql://localhost:3306/emp_info?characterEncoding=UTF-8&useSSL=false";
+		url = "jdbc:mysql://localhost:3306/dentistmanagement?characterEncoding=UTF-8&useSSL=false";
 		//url = "jdbc:mysql://localhost:3306/emp_info?characterEncoding=UTF-8&useSSL=false"
 		username = "gates";
 		password = "g@tes2009";
